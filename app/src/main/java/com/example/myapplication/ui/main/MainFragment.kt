@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import com.example.myapplication.R
-import com.example.myapplication.ui.NewNoteFragment
+import com.example.myapplication.ui.newNote.NewNoteFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -25,11 +25,15 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var view: View = inflater.inflate(R.layout.fragment_main, container, false)
-        fabAddNewNote = view.findViewById(R.id.FAB_add_new_note)
+        initGIU(view)
         fabAddNewNote.setOnClickListener(View.OnClickListener {
             initNewNote()
         })
         return view
+    }
+
+    private fun initGIU(view: View) {
+        fabAddNewNote = view.findViewById(R.id.FAB_add_new_note)
     }
 
     private fun initNewNote() {

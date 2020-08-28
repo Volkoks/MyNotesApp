@@ -4,7 +4,6 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentTransaction
-import com.example.myapplication.ui.NewNoteFragment
 import com.example.myapplication.ui.main.MainFragment
 
 
