@@ -4,7 +4,8 @@ package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentTransaction
-import com.example.myapplication.ui.MainFragment
+import com.example.myapplication.ui.NewNoteFragment
+import com.example.myapplication.ui.main.MainFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         initMainFragment()
     }
 
-    private fun initMainFragment() {
+    private fun initMainFragment(){
         var mainFragment: MainFragment = MainFragment()
         var ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment_container, mainFragment)
