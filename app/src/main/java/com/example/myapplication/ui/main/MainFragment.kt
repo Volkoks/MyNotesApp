@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import com.example.myapplication.R
 import com.example.myapplication.ui.newNote.NewNoteFragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_main.view.*
 
 
 class MainFragment : Fragment() {
 
-    lateinit var fabAddNewNote: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +23,16 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view: View = inflater.inflate(R.layout.fragment_main, container, false)
-        initGIU(view)
-        fabAddNewNote.setOnClickListener(View.OnClickListener {
-            initNewNote()
-        })
+        var view = inflater.inflate(R.layout.fragment_main, container, false)
+
+        view.FAB_add_new_note.setOnClickListener(View.OnClickListener { initNewNote() })
+
         return view
     }
 
-    private fun initGIU(view: View) {
-        fabAddNewNote = view.findViewById(R.id.FAB_add_new_note)
-    }
 
     private fun initNewNote() {
-        var newNoteFragment: NewNoteFragment = NewNoteFragment()
+        var newNoteFragment = NewNoteFragment()
         var ft: FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
         ft.replace(R.id.fragment_container, newNoteFragment)
         ft.addToBackStack("newNote")

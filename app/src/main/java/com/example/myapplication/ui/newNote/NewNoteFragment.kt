@@ -19,7 +19,7 @@ class NewNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var view: View = inflater.inflate(R.layout.fragment_new_note, container, false)
-              return view
+        return view
     }
 
 
