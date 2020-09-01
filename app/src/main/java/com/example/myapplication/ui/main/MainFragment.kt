@@ -45,10 +45,11 @@ class MainFragment : Fragment() {
         viewModel.myNotes.observe(this, Observer { t ->
             t?.let { list ->
                 adapter = NotesMainFragmentAdapter(list)
+                recycler_view_main_fragment.adapter = adapter
             }
         })
 
-        recycler_view_main_fragment.adapter = adapter
+
     }
 
 
