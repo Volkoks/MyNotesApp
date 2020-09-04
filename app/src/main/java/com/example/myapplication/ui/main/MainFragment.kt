@@ -19,7 +19,7 @@ import com.example.myapplication.viewmodel.MainFragmentViewModel as MainFragment
 class MainFragment : Fragment() {
 
     lateinit var viewModel: MainFragmentViewModel
-    lateinit var adapter: NotesMainFragmentAdapter
+    var adapter: NotesMainFragmentAdapter = NotesMainFragmentAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +41,10 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
 
         recycler_view_main_fragment.layoutManager = GridLayoutManager(activity, 2)
-
+        recycler_view_main_fragment.adapter = adapter
         viewModel.myNotes.observe(this, Observer { t ->
             t?.let { list ->
-                adapter = NotesMainFragmentAdapter(list)
-                recycler_view_main_fragment.adapter = adapter
+                adapter.thisNotes = t.notes
             }
         })
 
