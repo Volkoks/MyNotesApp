@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.R
+import kotlinx.android.synthetic.main.fragment_new_note.*
 
 class NewNoteFragment : Fragment() {
 
@@ -22,5 +23,10 @@ class NewNoteFragment : Fragment() {
         return view
     }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var bundle: Bundle? = arguments
+        editText_title.setText(arguments?.getString("title"))
+        editTextML_description.setText(arguments?.getString("description"))
+    }
 }

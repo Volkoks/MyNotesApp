@@ -19,14 +19,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        initMainFragment()
-    }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, MainFragment()).commit()
 
-    private fun initMainFragment(){
-        var mainFragment = MainFragment()
-        var ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_container, mainFragment)
-        ft.commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
