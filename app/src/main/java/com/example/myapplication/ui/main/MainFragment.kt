@@ -34,26 +34,17 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
 
         FAB_add_new_note.setOnClickListener { initNewNote() }
 
-        viewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
 
         recycler_view_main_fragment.layoutManager = GridLayoutManager(activity, 2)
+
         adapter = MainFragmentAdapter{
-            var title = it.title
-            var discription = it.discription
-            var bundle = Bundle()
-            bundle.putString("title", title)
-            bundle.putString("description",discription)
-            var fragment = NewNoteFragment()
-
-            fragment.arguments = bundle
-
             activity?.supportFragmentManager!!.beginTransaction()
-                .replace(R.id.fragment_container, fragment).addToBackStack("NoteFragment")
+                .replace(R.id.fragment_container, viewModel.initNoteFragment(it)).addToBackStack("NoteFragment")
                 .commit()
-
         }
 
         recycler_view_main_fragment.adapter = adapter
