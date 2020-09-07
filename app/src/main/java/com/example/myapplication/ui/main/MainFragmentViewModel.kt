@@ -11,7 +11,7 @@ class MainFragmentViewModel : ViewModel() {
     private var myNotes: MutableLiveData<MainViewState> = MutableLiveData()
 
     init {
-        NoteRepository.getNotes().removeObserver{ listNotes ->
+        NoteRepository.getNotes().observeForever{ listNotes ->
             listNotes?.let { listNotes ->
                 myNotes.value = myNotes.value?.copy(notes = listNotes) ?: MainViewState(listNotes)
             }

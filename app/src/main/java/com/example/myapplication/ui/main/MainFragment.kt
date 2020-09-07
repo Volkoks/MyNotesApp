@@ -41,13 +41,13 @@ class MainFragment : Fragment() {
 
         recycler_view_main_fragment.layoutManager = GridLayoutManager(activity, 2)
         adapter = MainFragmentAdapter{
-//            var title = it.title
-//            var discription = it.discription
-//            var bundle = Bundle()
-//            bundle.putString("title", title)
-//            bundle.putString("description",discription)
-//            var fragment = NewNoteFragment()
-//            fragment.arguments = bundle
+            var title = it.title
+            var discription = it.discription
+            var bundle = Bundle()
+            bundle.putString("title", title)
+            bundle.putString("description",discription)
+            var fragment = NewNoteFragment()
+            fragment.arguments = bundle
             activity?.supportFragmentManager!!.beginTransaction()
                 .replace(R.id.fragment_container, NewNoteFragment()).addToBackStack("NoteFragment")
                 .commit()
@@ -57,6 +57,7 @@ class MainFragment : Fragment() {
         viewModel.viewState().observe(this, Observer { t ->
             t?.let { list ->
                 adapter.thisNotes = t.notes
+                recycler_view_main_fragment.adapter = adapter
             }
         })
 
