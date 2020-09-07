@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.data.Note
@@ -26,19 +25,18 @@ class NewNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view: View = inflater.inflate(R.layout.fragment_new_note, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_new_note, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         note = arguments?.getParcelable("note")
-        viewModel = ViewModelProviders.of(this).get(NewNoteViewModel::class.java)
-
-        save_note_materialButton.setOnClickListener(saveNote)
-
         editText_title.setText(note?.title)
         editTextML_description.setText(note?.description)
+        viewModel = ViewModelProviders.of(this).get(NewNoteViewModel::class.java)
+
+
+        save_note_materialButton.setOnClickListener(saveNote)
     }
 
     private val saveNote = object : View.OnClickListener {
@@ -47,13 +45,15 @@ class NewNoteFragment : Fragment() {
 
             note = note?.copy(
                 title = editText_title.text.toString(),
-                description = editTextML_description.text.toString()
+                description = editTextML_description.text!!.toString()
             ) ?: Note(UUID.randomUUID().toString(),editText_title.text.toString() + "случайная",
             editTextML_description.text.toString() + "случайная",0)
 
             note?.let {
                 viewModel.save(it)
             }
+
+
         }
     }
 }
