@@ -47,13 +47,17 @@ class MainFragment : Fragment() {
             bundle.putString("title", title)
             bundle.putString("description",discription)
             var fragment = NewNoteFragment()
+
             fragment.arguments = bundle
+
             activity?.supportFragmentManager!!.beginTransaction()
-                .replace(R.id.fragment_container, NewNoteFragment()).addToBackStack("NoteFragment")
+                .replace(R.id.fragment_container, fragment).addToBackStack("NoteFragment")
                 .commit()
 
         }
+
         recycler_view_main_fragment.adapter = adapter
+
         viewModel.viewState().observe(this, Observer { t ->
             t?.let { list ->
                 adapter.thisNotes = t.notes
