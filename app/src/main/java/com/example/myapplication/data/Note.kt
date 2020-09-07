@@ -8,7 +8,7 @@ import java.util.*
 data class Note(
     var id: String,
     var title: String,
-    var discription: String,
+    var description: String,
     var color: Int,
     var lastChanged: Date = Date()
 ) : Parcelable {

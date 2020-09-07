@@ -31,11 +31,8 @@ class MainFragmentViewModel : ViewModel() {
 
     fun initNoteFragment(note: Note): NewNoteFragment{
         var fragment = NewNoteFragment()
-        var title = note.title
-        var discription = note.discription
         var bundle = Bundle()
-        bundle.putString("title", title)
-        bundle.putString("description",discription)
+        bundle.putParcelable("note", note)
         fragment.arguments = bundle
 
         return fragment
