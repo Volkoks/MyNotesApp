@@ -46,8 +46,8 @@ class NewNoteFragment : Fragment() {
             note = note?.copy(
                 title = editText_title.text.toString(),
                 description = editTextML_description.text!!.toString()
-            ) ?: Note(UUID.randomUUID().toString(),editText_title.text.toString() + "случайная",
-            editTextML_description.text.toString() + "случайная",0)
+            ) ?: Note(UUID.randomUUID().toString(),editText_title.text.toString(),
+            editTextML_description.text.toString(),0)
 
             note?.let {
                 viewModel.save(it)

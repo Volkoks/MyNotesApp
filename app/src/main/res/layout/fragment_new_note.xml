@@ -33,7 +33,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_TIL"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="415dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="7dp"
             android:textColorHint="#000000"
@@ -41,15 +41,16 @@
             app:hintTextColor="#333333"
             app:layout_constraintBottom_toTopOf="@+id/save_note_materialButton"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_TIL">
+            app:layout_constraintTop_toBottomOf="@+id/title_TIL"
+            app:layout_constraintVertical_bias="0.0">
 
             <EditText
                 android:id="@+id/editTextML_description"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_weight="1"
-                android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/description"
                 android:inputType="textMultiLine" />

@@ -38,8 +38,8 @@ object NoteRepository {
 
     fun replaceNote(note: Note) {
         for (i in listNote.indices) {
-            if (listNote[i].id === note.id) {
-                listNote[i] == note
+            if (listNote[i].id == note.id) {
+                listNote[i] = note
             }
         }
         listNote.add(note)
