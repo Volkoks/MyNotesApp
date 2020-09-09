@@ -2,4 +2,6 @@
 <resources>
     <string name="title">Заголовок</string>
     <string name="description">Описание заметки</string>
+    <string name="setting">Настройки</string>
+    <string name="save">Сохранить</string>
 </resources>
