@@ -6,12 +6,19 @@ import java.util.*
 
 @Parcelize
 data class Note(
-    var id: String,
-    var title: String,
-    var description: String,
-    var color: Int,
+    var id: String = "",
+    var title: String = "",
+    var description: String = "",
+    var color: Color = Color.YELLOW,
     var lastChanged: Date = Date()
 ) : Parcelable {
 
-
+    enum class Color {
+        WHITE,
+        YELLOW,
+        GREEN,
+        BLUE,
+        RED,
+        VIOLET,
+    }
 }

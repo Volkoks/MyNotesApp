@@ -34,7 +34,19 @@ class MainFragmentAdapter(val onItemClick: ((Note) -> Unit)? = null) :
         fun bind(note: Note) = with(itemView) {
             title_card_view.text = note.title
             description_card_view.text = note.description
-            setBackgroundColor(note.color)
+
+
+            val color = when (note.color) {
+                Note.Color.WHITE -> R.color.white
+                Note.Color.YELLOW -> R.color.yellow
+                Note.Color.GREEN -> R.color.green
+                Note.Color.BLUE -> R.color.blue
+                Note.Color.RED -> R.color.red
+                Note.Color.VIOLET -> R.color.violet
+            }
+            setBackgroundColor(color)
+
+
 
             itemView.setOnClickListener {
                 onItemClick?.invoke(note)
