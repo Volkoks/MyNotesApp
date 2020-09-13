@@ -1,24 +1,22 @@
 package com.example.myapplication.ui.base
 
 import android.os.Bundle
-import android.os.Message
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.example.myapplication.R
+
 
 abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
-    abstract var layoutRes: Int
-    abstract var viewModel: BaseViewModel<T, S>
+    abstract val layoutRes: Int
+    abstract val viewModel: BaseViewModel<T, S>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
