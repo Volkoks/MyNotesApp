@@ -40,7 +40,7 @@ class NewNoteFragment : BaseFragment<Note?, NewNoteViewState>() {
             editText_title.setText(note?.title)
             editTextML_description.setText(note?.description)
         } ?: let {
-            editText_title.setText("НОВАЯ ЗАМЕТКА")
+            editText_title.hint = "Заголовок.НОВАЯ ЗАМЕТКА"
         }
 
         save_note_materialButton.setOnClickListener(saveNote)
