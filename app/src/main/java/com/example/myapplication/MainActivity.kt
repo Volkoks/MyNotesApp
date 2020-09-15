@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import com.example.myapplication.ui.authScreen.AuthScreenFragment
 import com.example.myapplication.ui.main.MainFragment
 
 
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         var toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, MainFragment()).commit()
+            .replace(R.id.fragment_container, AuthScreenFragment()).commit()
 
     }
 
