@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         var toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, AuthScreenFragment()).commit()
+            .replace(R.id.fragment_container, MainFragment()).commit()
 
     }
 

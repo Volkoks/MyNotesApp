@@ -20,7 +20,12 @@ class NewNoteFragment : BaseFragment<Note?, NewNoteViewState>() {
 
     override fun renderData(data: Note?) {
         this.note = data
-
+note?.let {
+    editText_title.setText(note?.title)
+    editTextML_description.setText(note?.description)
+}?:let {
+    editText_title.hint = "Заголовок.НОВАЯ ЗАМЕТКА"
+}
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +36,13 @@ class NewNoteFragment : BaseFragment<Note?, NewNoteViewState>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         note = arguments?.getParcelable("note")
-        note?.id?.let { id ->
-            viewModel.load(id)
-            editText_title.setText(note?.title)
-            editTextML_description.setText(note?.description)
-        } ?: let {
-            editText_title.hint = "Заголовок.НОВАЯ ЗАМЕТКА"
-        }
+//        note?.id?.let { id ->
+//            viewModel.load(id)
+//            editText_title.setText(note?.title)
+//            editTextML_description.setText(note?.description)
+//        } ?: let {
+//            editText_title.hint = "Заголовок.НОВАЯ ЗАМЕТКА"
+//        }
 
         save_note_materialButton.setOnClickListener(saveNote)
     }

@@ -12,6 +12,11 @@ class AuthScreenFragment : BaseFragment<Boolean?, AuthViewState>() {
         ViewModelProviders.of(this).get(AuthViewModel::class.java)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.requestUser()
+    }
+
     override fun renderData(data: Boolean?) {
         if (data == true) {
             startMainFragment()

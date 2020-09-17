@@ -52,7 +52,8 @@ class FireStoreProvider : RemoteDataProvider {
 
     override fun getNoteByID(id: String): LiveData<NoteResult> {
         val result = MutableLiveData<NoteResult>()
-        userNoteCollection.document(id).get().addOnSuccessListener {
+        userNoteCollection.document(id).get()
+            .addOnSuccessListener {
             result.value = NoteResult.Success(it.toObject(Note::class.java))
         }
             .addOnFailureListener { result.value = NoteResult.Error(it) }
@@ -73,7 +74,9 @@ class FireStoreProvider : RemoteDataProvider {
         return result
     }
 
-    override fun getCurrentUser(): LiveData<User?> = MutableLiveData<User?>().apply {
-        value = currentUser?.let { User(it.displayName ?: "", it.email ?: "") }
+    override fun getCurrentUser(): LiveData<User?> =
+        MutableLiveData<User?>().apply {
+        value = currentUser?.let {
+            User(it.displayName ?: "", it.email ?: "") }
     }
 }
