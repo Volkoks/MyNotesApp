@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.example.myapplication.R
 import com.example.myapplication.data.errors.NoAuthExp
+import com.example.myapplication.ui.main.MainFragment
 import com.firebase.ui.auth.AuthUI
 
 
@@ -76,7 +78,8 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 if (requestCode == RC_SINGIN && resultCode != Activity.RESULT_OK) {
-
+    activity?.supportFragmentManager!!.beginTransaction()
+        .replace(R.id.fragment_container, MainFragment()).commit()
 }
     }
 

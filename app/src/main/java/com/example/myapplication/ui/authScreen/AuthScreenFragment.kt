@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.authScreen
 
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.ui.base.BaseFragment
@@ -20,6 +21,8 @@ class AuthScreenFragment : BaseFragment<Boolean?, AuthViewState>() {
     override fun renderData(data: Boolean?) {
         if (data == true) {
             startMainFragment()
+        }else{
+            Toast.makeText(activity,"ОШИБКА ОШИБКА!", Toast.LENGTH_SHORT).show()
         }
     }
 
