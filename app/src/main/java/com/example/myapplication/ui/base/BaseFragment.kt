@@ -77,7 +77,7 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-if (requestCode == RC_SINGIN && resultCode != Activity.RESULT_OK) {
+if (resultCode == Activity.RESULT_OK) {
     activity?.supportFragmentManager!!.beginTransaction()
         .replace(R.id.fragment_container, MainFragment()).commit()
 }

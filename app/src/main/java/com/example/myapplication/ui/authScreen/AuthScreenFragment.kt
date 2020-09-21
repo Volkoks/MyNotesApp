@@ -8,7 +8,7 @@ import com.example.myapplication.ui.main.MainFragment
 
 
 class AuthScreenFragment : BaseFragment<Boolean?, AuthViewState>() {
-    override val layoutRes = R.layout.fragment_main
+    override val layoutRes = R.layout.fragment_auth_screen
     override val viewModel: AuthViewModel by lazy {
         ViewModelProviders.of(this).get(AuthViewModel::class.java)
     }
