@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.myapplication.ui.authScreen.AuthScreenFragment
 import com.example.myapplication.ui.main.MainFragment
+import com.firebase.ui.auth.AuthUI
+import java.lang.System.exit
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +37,20 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Должны открыться настройки - но их пока нет=)", Toast.LENGTH_SHORT).show()
                 true
             }
+            R.id.exit->{
+                logOut()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun logOut(){
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, AuthScreenFragment()).commit()
+            }
     }
 }
