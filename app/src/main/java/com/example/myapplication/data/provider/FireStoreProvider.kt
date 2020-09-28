@@ -3,8 +3,11 @@ package com.example.myapplication.data.provider
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.myapplication.data.Note
+import com.example.myapplication.data.entity.Note
+import com.example.myapplication.data.entity.User
+import com.example.myapplication.data.errors.NoAuthExp
 import com.example.myapplication.data.model.NoteResult
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -12,17 +15,27 @@ class FireStoreProvider : RemoteDataProvider {
 
     companion object {
         private const val NOTES_COLLECTION = "notes"
+        private const val USER_COLLECTION = "user"
     }
 
     private val TAG = FireStoreProvider::class.java.simpleName
-    private val db = FirebaseFirestore.getInstance()
-    private val noteReference = db.collection(NOTES_COLLECTION)
+    private val db by lazy { FirebaseFirestore.getInstance() }
+    private val authUser by lazy { FirebaseAuth.getInstance() }
+
+    private val currentUser
+        get() = authUser.currentUser
+
+    val userNoteCollection
+        get() = currentUser?.let {
+            db.collection(USER_COLLECTION).document(it.uid).collection(NOTES_COLLECTION)
+        }
+            ?: throw NoAuthExp()
 
 
     override fun subscribeToAllNote(): LiveData<NoteResult> {
         val result = MutableLiveData<NoteResult>()
 
-        noteReference.addSnapshotListener { snapshot, error ->
+        userNoteCollection.addSnapshotListener { snapshot, error ->
             error?.let {
                 result.value = NoteResult.Error(error)
             } ?: let {
@@ -39,7 +52,8 @@ class FireStoreProvider : RemoteDataProvider {
 
     override fun getNoteByID(id: String): LiveData<NoteResult> {
         val result = MutableLiveData<NoteResult>()
-        noteReference.document(id).get().addOnSuccessListener {
+        userNoteCollection.document(id).get()
+            .addOnSuccessListener {
             result.value = NoteResult.Success(it.toObject(Note::class.java))
         }
             .addOnFailureListener { result.value = NoteResult.Error(it) }
@@ -49,7 +63,7 @@ class FireStoreProvider : RemoteDataProvider {
     override fun saveNote(note: Note): LiveData<NoteResult> {
         val result = MutableLiveData<NoteResult>()
 
-        noteReference.document(note.id).set(note)
+        userNoteCollection.document(note.id).set(note)
             .addOnSuccessListener {
                 Log.d(TAG, "Note $note save")
                 result.value = NoteResult.Success(note)
@@ -58,5 +72,11 @@ class FireStoreProvider : RemoteDataProvider {
                 result.value = NoteResult.Error(p0)
             }
         return result
+    }
+
+    override fun getCurrentUser(): LiveData<User?> =
+        MutableLiveData<User?>().apply {
+        value = currentUser?.let {
+            User(it.displayName ?: "", it.email ?: "") }
     }
 }

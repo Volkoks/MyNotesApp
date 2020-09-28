@@ -1,15 +1,12 @@
 package com.example.myapplication.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.R
-import com.example.myapplication.data.Note
+import com.example.myapplication.data.entity.Note
 import com.example.myapplication.ui.base.BaseFragment
 import com.example.myapplication.ui.base.BaseViewModel
 import com.example.myapplication.ui.newNote.NewNoteFragment

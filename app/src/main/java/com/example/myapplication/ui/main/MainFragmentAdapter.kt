@@ -3,10 +3,9 @@ package com.example.myapplication.ui.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.data.Note
+import com.example.myapplication.data.entity.Note
 import kotlinx.android.synthetic.main.card_view_note.view.*
 
 class MainFragmentAdapter(val onItemClick: ((Note) -> Unit)? = null) :

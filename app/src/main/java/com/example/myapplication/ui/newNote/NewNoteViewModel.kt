@@ -1,7 +1,7 @@
 package com.example.myapplication.ui.newNote
 
 
-import com.example.myapplication.data.Note
+import com.example.myapplication.data.entity.Note
 import com.example.myapplication.data.model.NoteResult
 import com.example.myapplication.data.repository.NoteRepository
 import com.example.myapplication.ui.base.BaseViewModel

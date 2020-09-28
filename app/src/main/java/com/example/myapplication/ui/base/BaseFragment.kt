@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.base
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 
 import androidx.fragment.app.Fragment
@@ -8,10 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.example.myapplication.R
+import com.example.myapplication.data.errors.NoAuthExp
+import com.example.myapplication.ui.main.MainFragment
+import com.firebase.ui.auth.AuthUI
 
 
 abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
-    abstract val layoutRes: Int
+
+    companion object {
+        const val RC_SINGIN = 5252
+    }
+
+    abstract val layoutRes: Int?
     abstract val viewModel: BaseViewModel<T, S>
 
 
@@ -23,7 +34,7 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layoutRes, container, false)
+        return layoutRes?.let { inflater.inflate(it, container, false) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,9 +53,34 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
     abstract fun renderData(data: T)
 
     protected fun renderError(e: Throwable?) {
-        e?.message?.let {
-            showError(it)
+        when (e) {
+            is NoAuthExp -> startLogin()
+            else -> e?.message?.let {
+                showError(it)
+            }
+
         }
+    }
+
+    private fun startLogin() {
+        val providers = listOf(
+            AuthUI.IdpConfig.GoogleBuilder().build()
+        )
+
+        val intent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .build()
+
+        startActivityForResult(intent, RC_SINGIN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+if (resultCode == Activity.RESULT_OK) {
+    activity?.supportFragmentManager!!.beginTransaction()
+        .replace(R.id.fragment_container, MainFragment()).commit()
+}
     }
 
     protected fun showError(message: String) {
