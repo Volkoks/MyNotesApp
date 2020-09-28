@@ -54,8 +54,8 @@ class FireStoreProvider : RemoteDataProvider {
         val result = MutableLiveData<NoteResult>()
         userNoteCollection.document(id).get()
             .addOnSuccessListener {
-            result.value = NoteResult.Success(it.toObject(Note::class.java))
-        }
+                result.value = NoteResult.Success(it.toObject(Note::class.java))
+            }
             .addOnFailureListener { result.value = NoteResult.Error(it) }
         return result
     }
@@ -76,7 +76,19 @@ class FireStoreProvider : RemoteDataProvider {
 
     override fun getCurrentUser(): LiveData<User?> =
         MutableLiveData<User?>().apply {
-        value = currentUser?.let {
-            User(it.displayName ?: "", it.email ?: "") }
-    }
+            value = currentUser?.let {
+                User(it.displayName ?: "", it.email ?: "")
+            }
+        }
+
+    override fun deleteNote(noteId: String): LiveData<NoteResult> =
+        MutableLiveData<NoteResult>().apply {
+            userNoteCollection.document(noteId).delete()
+                .addOnCompleteListener {
+                    value = NoteResult.Success(null)
+                }
+                .addOnFailureListener {
+                    value = NoteResult.Error(it)
+                }
+        }
 }

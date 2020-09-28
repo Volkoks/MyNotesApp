@@ -11,4 +11,5 @@ private val provider: RemoteDataProvider = FireStoreProvider()
     fun saveNote(note: Note) = provider.saveNote(note)
     fun getNoteByID(id: String)= provider.getNoteByID(id)
     fun getCurrentUser() = provider.getCurrentUser()
+    fun deleteNote(noteId: String) = provider.deleteNote(noteId)
 }

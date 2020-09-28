@@ -9,7 +9,7 @@ import com.example.myapplication.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_new_note.*
 import java.util.*
 
-class NewNoteFragment : BaseFragment<Note?, NewNoteViewState>() {
+class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() {
     private var note: Note? = null
 
     override val layoutRes = R.layout.fragment_new_note
@@ -18,8 +18,11 @@ class NewNoteFragment : BaseFragment<Note?, NewNoteViewState>() {
         ViewModelProviders.of(this).get(NewNoteViewModel::class.java)
     }
 
-    override fun renderData(data: Note?) {
-        this.note = data
+    override fun renderData(data: NewNoteViewState.Data) {
+        // Реализовать закрытие фрагмента если флаг true
+        if (data.isDeleted)
+
+        this.note = data.note
         note?.let {
             editText_title.setText(note?.title)
             editTextML_description.setText(note?.description)

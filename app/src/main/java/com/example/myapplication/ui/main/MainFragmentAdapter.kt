@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.data.entity.Note
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_view_note.view.*
 
 class MainFragmentAdapter(val onItemClick: ((Note) -> Unit)? = null) :
@@ -28,7 +29,7 @@ class MainFragmentAdapter(val onItemClick: ((Note) -> Unit)? = null) :
 
     override fun getItemCount() = thisNotes.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(note: Note) = with(itemView) {
             title_card_view.text = note.title
