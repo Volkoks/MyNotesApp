@@ -1,42 +1,38 @@
 package com.example.myapplication.ui.main
 
-import android.app.Activity
-import android.content.Context
-import android.os.Bundle
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.myapplication.R
-import com.example.myapplication.data.Note
+import androidx.lifecycle.Observer
+import com.example.myapplication.data.entity.Note
+import com.example.myapplication.data.model.NoteResult
 import com.example.myapplication.data.repository.NoteRepository
-import com.example.myapplication.ui.main.MainViewState
-import com.example.myapplication.ui.newNote.NewNoteFragment
+import com.example.myapplication.ui.base.BaseViewModel
 
-class MainFragmentViewModel : ViewModel() {
-
-    private var myNotes: MutableLiveData<MainViewState> = MutableLiveData()
+class MainFragmentViewModel : BaseViewModel<List<Note>?, MainViewState>() {
 
 
-    init {
-        NoteRepository.getNotes().observeForever{ listNotes ->
-            listNotes?.let { listNotes ->
-                myNotes.value = myNotes.value?.copy(notes = listNotes) ?: MainViewState(listNotes)
+    private val notesObserver = Observer<NoteResult> { result ->
+        result ?: return@Observer
+        when (result) {
+            is NoteResult.Success<*> -> {
+                viewStateLiveData.value = MainViewState(notes = result.data as? List<Note>)
             }
-
+            is NoteResult.Error -> {
+                viewStateLiveData.value = MainViewState(error = result.error)
+            }
         }
 
     }
+    private var noteRepository = NoteRepository.getNotes()
 
-    fun viewState(): LiveData<MainViewState> = myNotes
-
-    fun initNoteFragment(note: Note): NewNoteFragment{
-        var fragment = NewNoteFragment()
-        var bundle = Bundle()
-        bundle.putParcelable("note", note)
-        fragment.arguments = bundle
-
-        return fragment
+    init {
+        viewStateLiveData.value = MainViewState()
+        noteRepository.observeForever(notesObserver)
     }
+
+    override fun onCleared() {
+        noteRepository.removeObserver(notesObserver)
+        super.onCleared()
+    }
+
 }
 
 

@@ -4,4 +4,12 @@
     <color name="colorPrimaryDark">#FAB706</color>
     <color name="colorAccent">#0073FF</color>
     <color name="colorTurquoise">#C6FF00</color>
+
+    <color name="white">#F5F5F5</color>
+    <color name="yellow">#F3E56D</color>
+    <color name="green">#83F388</color>
+    <color name="blue">#60BFEA</color>
+    <color name="red">#F1A59F</color>
+    <color name="violet">#E092ED</color>
+    <color name="pink">#CA7190</color>
 </resources>
