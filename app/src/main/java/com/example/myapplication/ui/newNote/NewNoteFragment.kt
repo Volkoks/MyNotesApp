@@ -26,6 +26,7 @@ class NewNoteFragment : BaseFragment<Note?, NewNoteViewState>() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
