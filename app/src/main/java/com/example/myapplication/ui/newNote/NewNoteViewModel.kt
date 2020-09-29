@@ -13,10 +13,11 @@ class NewNoteViewModel(val noteRepository: NoteRepository) :
         get() = viewStateLiveData.value?.data?.note
 
     fun save(note: Note) {
+        viewStateLiveData.value = NewNoteViewState(NewNoteViewState.Data(note = note))
+
         pandingNote?.let {
             noteRepository.saveNote(it)
         }
-
     }
 
     fun load(noteId: String) {

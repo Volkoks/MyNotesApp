@@ -38,6 +38,8 @@ class MainFragment : BaseFragment<List<Note>?, MainViewState>() {
                 .replace(R.id.fragment_container, model.initNoteFragment(it))
                 .addToBackStack("NoteFragment")
                 .commit()
+
+
         }
 
         recycler_view_main_fragment.adapter = adapter

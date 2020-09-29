@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.newNote
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
@@ -18,10 +19,9 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
     override val model: NewNoteViewModel by viewModel()
 
     override fun renderData(data: NewNoteViewState.Data) {
-        // Реализовать закрытие фрагмента если флаг true
-        if (data.isDeleted)
+        if (data.isDeleted) activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
 
-        this.note = data.note
+            this.note = data.note
         note?.let {
             editText_title.setText(note?.title)
             editTextML_description.setText(note?.description)
@@ -31,7 +31,6 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,6 +43,7 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
         }
 
         save_note_materialButton.setOnClickListener(saveNote)
+        delete_note.setOnClickListener(deleteNote)
     }
 
     private val saveNote = object : View.OnClickListener {
@@ -57,7 +57,6 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
                 UUID.randomUUID().toString(), editText_title.text.toString(),
                 editTextML_description.text.toString(), Note.Color.RED
             )
-
             note?.let {
                 model.save(it)
             }
@@ -65,6 +64,17 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
 
         }
     }
+    private val deleteNote = object : View.OnClickListener{
+        override fun onClick(p0: View?) {
+            AlertDialog.Builder(activity)
+                .setMessage("Вы точно уверены?")
+                .setPositiveButton("ДА"){dialog, which -> model.deleteNote()}
+                .setNegativeButton("НЕТ"){dialog, which -> dialog.dismiss()}
+                .show()
+        }
+
+    }
+
 
 
 }
