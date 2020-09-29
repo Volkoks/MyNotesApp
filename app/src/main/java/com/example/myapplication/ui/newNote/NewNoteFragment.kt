@@ -7,6 +7,7 @@ import com.example.myapplication.R
 import com.example.myapplication.data.entity.Note
 import com.example.myapplication.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_new_note.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() {
@@ -14,9 +15,7 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
 
     override val layoutRes = R.layout.fragment_new_note
 
-    override val viewModel: NewNoteViewModel by lazy {
-        ViewModelProviders.of(this).get(NewNoteViewModel::class.java)
-    }
+    override val model: NewNoteViewModel by viewModel()
 
     override fun renderData(data: NewNoteViewState.Data) {
         // Реализовать закрытие фрагмента если флаг true
@@ -39,7 +38,7 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
         super.onViewCreated(view, savedInstanceState)
         note = arguments?.getParcelable("note")
         note?.id?.let { id ->
-            viewModel.load(id)
+            model.load(id)
         } ?: let {
             editText_title.hint = "Заголовок.НОВАЯ ЗАМЕТКА"
         }
@@ -60,7 +59,7 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
             )
 
             note?.let {
-                viewModel.save(it)
+                model.save(it)
             }
 
 

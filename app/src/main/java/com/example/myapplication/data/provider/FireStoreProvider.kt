@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class FireStoreProvider : RemoteDataProvider {
+class FireStoreProvider(private val db: FirebaseFirestore, private val authUser: FirebaseAuth) : RemoteDataProvider {
 
     companion object {
         private const val NOTES_COLLECTION = "notes"
@@ -19,8 +19,7 @@ class FireStoreProvider : RemoteDataProvider {
     }
 
     private val TAG = FireStoreProvider::class.java.simpleName
-    private val db by lazy { FirebaseFirestore.getInstance() }
-    private val authUser by lazy { FirebaseAuth.getInstance() }
+
 
     private val currentUser
         get() = authUser.currentUser

@@ -14,7 +14,7 @@ class NewNoteViewModel(val noteRepository: NoteRepository) :
 
     fun save(note: Note) {
         pandingNote?.let {
-            NoteRepository.saveNote(it)
+            noteRepository.saveNote(it)
         }
 
     }

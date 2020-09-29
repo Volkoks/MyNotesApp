@@ -23,7 +23,7 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
     }
 
     abstract val layoutRes: Int?
-    abstract val viewModel: BaseViewModel<T, S>
+    abstract val model: BaseViewModel<T, S>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ abstract class BaseFragment<T, S : BaseViewState<T>> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getViewState().observe(this, Observer { state ->
+        model.getViewState().observe(this, Observer { state ->
             state ?: return@Observer
             state.error?.let {
                 renderError(it)
