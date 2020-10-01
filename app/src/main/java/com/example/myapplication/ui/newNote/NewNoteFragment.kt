@@ -3,7 +3,6 @@ package com.example.myapplication.ui.newNote
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.data.entity.Note
 import com.example.myapplication.ui.base.BaseFragment
@@ -19,9 +18,9 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
     override val model: NewNoteViewModel by viewModel()
 
     override fun renderData(data: NewNoteViewState.Data) {
-        if (data.isDeleted) activity?.supportFragmentManager!!.beginTransaction().remove(this).commit()
+        if (data.isDeleted) activity?.supportFragmentManager!!.popBackStackImmediate()
 
-            this.note = data.note
+        this.note = data.note
         note?.let {
             editText_title.setText(note?.title)
             editTextML_description.setText(note?.description)
@@ -35,8 +34,8 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        note = arguments?.getParcelable("note")
-        note?.id?.let { id ->
+        val noteId = arguments?.getString("note")
+        noteId?.let { id ->
             model.load(id)
         } ?: let {
             editText_title.hint = "Заголовок.НОВАЯ ЗАМЕТКА"
@@ -45,6 +44,7 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
         save_note_materialButton.setOnClickListener(saveNote)
         delete_note.setOnClickListener(deleteNote)
     }
+
 
     private val saveNote = object : View.OnClickListener {
         override fun onClick(p0: View?) {
@@ -64,17 +64,18 @@ class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() 
 
         }
     }
-    private val deleteNote = object : View.OnClickListener{
+    private val deleteNote = object : View.OnClickListener {
         override fun onClick(p0: View?) {
             AlertDialog.Builder(activity)
                 .setMessage("Вы точно уверены?")
-                .setPositiveButton("ДА"){dialog, which -> model.deleteNote()}
-                .setNegativeButton("НЕТ"){dialog, which -> dialog.dismiss()}
+                .setPositiveButton("ДА") { dialog, which -> model.deleteNote() }
+                .setNegativeButton("НЕТ") { dialog, which -> dialog.dismiss() }
                 .show()
+
+
         }
 
     }
-
 
 
 }

@@ -7,7 +7,7 @@ import com.example.myapplication.data.di.mainModule
 import com.example.myapplication.data.di.newNoteModule
 import org.koin.android.ext.android.startKoin
 
-class App: Application() {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()

@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.authScreen
 
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.ui.base.BaseFragment
 import com.example.myapplication.ui.main.MainFragment

@@ -2,12 +2,10 @@ package com.example.myapplication.ui.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.data.entity.Note
 import com.example.myapplication.ui.base.BaseFragment
-import com.example.myapplication.ui.base.BaseViewModel
 import com.example.myapplication.ui.newNote.NewNoteFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -43,14 +41,6 @@ class MainFragment : BaseFragment<List<Note>?, MainViewState>() {
         }
 
         recycler_view_main_fragment.adapter = adapter
-
-//        viewModel.viewState().observe(this, Observer { t ->
-//            t?.let { list ->
-//                adapter.thisNotes = t.notes
-//                recycler_view_main_fragment.adapter = adapter
-//            }
-//        })
-
 
     }
 

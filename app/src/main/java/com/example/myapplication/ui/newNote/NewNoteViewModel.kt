@@ -9,6 +9,7 @@ import com.example.myapplication.ui.base.BaseViewModel
 class NewNoteViewModel(val noteRepository: NoteRepository) :
     BaseViewModel<NewNoteViewState.Data, NewNoteViewState>() {
 
+
     private val pandingNote: Note?
         get() = viewStateLiveData.value?.data?.note
 

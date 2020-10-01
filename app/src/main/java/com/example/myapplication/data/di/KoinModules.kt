@@ -25,5 +25,5 @@ val mainModule = module {
     viewModel { MainFragmentViewModel(get()) }
 }
 val newNoteModule = module {
-    viewModel { NewNoteViewModel(get()) }
+    viewModel {NewNoteViewModel(get())}
 }
