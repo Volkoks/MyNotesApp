@@ -1,21 +1,19 @@
 package com.example.myapplication.ui.authScreen
 
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
 import com.example.myapplication.ui.base.BaseFragment
 import com.example.myapplication.ui.main.MainFragment
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class AuthScreenFragment : BaseFragment<Boolean?, AuthViewState>() {
     override val layoutRes = R.layout.fragment_auth_screen
-    override val viewModel: AuthViewModel by lazy {
-        ViewModelProviders.of(this).get(AuthViewModel::class.java)
-    }
+    override val model: AuthViewModel by viewModel()
 
     override fun onResume() {
         super.onResume()
-        viewModel.requestUser()
+        model.requestUser()
     }
 
     override fun renderData(data: Boolean?) {

@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class FireStoreProvider : RemoteDataProvider {
+class FireStoreProvider(private val db: FirebaseFirestore, private val authUser: FirebaseAuth) : RemoteDataProvider {
 
     companion object {
         private const val NOTES_COLLECTION = "notes"
@@ -19,8 +19,7 @@ class FireStoreProvider : RemoteDataProvider {
     }
 
     private val TAG = FireStoreProvider::class.java.simpleName
-    private val db by lazy { FirebaseFirestore.getInstance() }
-    private val authUser by lazy { FirebaseAuth.getInstance() }
+
 
     private val currentUser
         get() = authUser.currentUser
@@ -54,8 +53,8 @@ class FireStoreProvider : RemoteDataProvider {
         val result = MutableLiveData<NoteResult>()
         userNoteCollection.document(id).get()
             .addOnSuccessListener {
-            result.value = NoteResult.Success(it.toObject(Note::class.java))
-        }
+                result.value = NoteResult.Success(it.toObject(Note::class.java))
+            }
             .addOnFailureListener { result.value = NoteResult.Error(it) }
         return result
     }
@@ -76,7 +75,19 @@ class FireStoreProvider : RemoteDataProvider {
 
     override fun getCurrentUser(): LiveData<User?> =
         MutableLiveData<User?>().apply {
-        value = currentUser?.let {
-            User(it.displayName ?: "", it.email ?: "") }
-    }
+            value = currentUser?.let {
+                User(it.displayName ?: "", it.email ?: "")
+            }
+        }
+
+    override fun deleteNote(noteId: String): LiveData<NoteResult> =
+        MutableLiveData<NoteResult>().apply {
+            userNoteCollection.document(noteId).delete()
+                .addOnCompleteListener {
+                    value = NoteResult.Success(null)
+                }
+                .addOnFailureListener {
+                    value = NoteResult.Error(it)
+                }
+        }
 }

@@ -6,7 +6,7 @@ import com.example.myapplication.data.model.NoteResult
 import com.example.myapplication.data.repository.NoteRepository
 import com.example.myapplication.ui.base.BaseViewModel
 
-class MainFragmentViewModel : BaseViewModel<List<Note>?, MainViewState>() {
+class MainFragmentViewModel(noteRepository: NoteRepository) : BaseViewModel<List<Note>?, MainViewState>() {
 
 
     private val notesObserver = Observer<NoteResult> { result ->
@@ -21,15 +21,15 @@ class MainFragmentViewModel : BaseViewModel<List<Note>?, MainViewState>() {
         }
 
     }
-    private var noteRepository = NoteRepository.getNotes()
+    private var repositoryNotes = noteRepository.getNotes()
 
     init {
         viewStateLiveData.value = MainViewState()
-        noteRepository.observeForever(notesObserver)
+        repositoryNotes.observeForever(notesObserver)
     }
 
     override fun onCleared() {
-        noteRepository.removeObserver(notesObserver)
+        repositoryNotes.removeObserver(notesObserver)
         super.onCleared()
     }
 

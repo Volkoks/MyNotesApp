@@ -12,11 +12,10 @@ open class BaseViewModel<T, S : BaseViewState<T>> : ViewModel() {
     open fun getViewState(): LiveData<S> = viewStateLiveData
 
     fun initNoteFragment(note: Note): NewNoteFragment {
-        var fragment = NewNoteFragment()
-        var bundle = Bundle()
-        bundle.putParcelable("note", note)
+        val fragment = NewNoteFragment()
+        val bundle = Bundle()
+        bundle.putString("note", note.id)
         fragment.arguments = bundle
-
         return fragment
     }
 }

@@ -1,16 +1,14 @@
 package com.example.myapplication
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.myapplication.ui.authScreen.AuthScreenFragment
-import com.example.myapplication.ui.main.MainFragment
 import com.firebase.ui.auth.AuthUI
-import java.lang.System.exit
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, AuthScreenFragment()).commit()

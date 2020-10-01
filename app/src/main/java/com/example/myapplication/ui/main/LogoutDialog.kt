@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 
-class LogoutDialog() : DialogFragment() {
+class LogoutDialog : DialogFragment() {
     companion object{
 
         fun createInstance(onLogout:(()->Unit))=LogoutDialog().apply {
