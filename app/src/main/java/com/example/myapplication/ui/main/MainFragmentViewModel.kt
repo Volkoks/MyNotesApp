@@ -1,12 +1,14 @@
 package com.example.myapplication.ui.main
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import com.example.myapplication.data.entity.Note
 import com.example.myapplication.data.model.NoteResult
 import com.example.myapplication.data.repository.NoteRepository
 import com.example.myapplication.ui.base.BaseViewModel
 
-class MainFragmentViewModel(noteRepository: NoteRepository) : BaseViewModel<List<Note>?, MainViewState>() {
+class MainFragmentViewModel(noteRepository: NoteRepository) :
+    BaseViewModel<List<Note>?, MainViewState>() {
 
 
     private val notesObserver = Observer<NoteResult> { result ->
@@ -28,7 +30,8 @@ class MainFragmentViewModel(noteRepository: NoteRepository) : BaseViewModel<List
         repositoryNotes.observeForever(notesObserver)
     }
 
-    override fun onCleared() {
+    @VisibleForTesting
+    public override fun onCleared() {
         repositoryNotes.removeObserver(notesObserver)
         super.onCleared()
     }
