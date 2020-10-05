@@ -6,7 +6,7 @@ import com.example.myapplication.data.model.NoteResult
 import com.example.myapplication.data.repository.NoteRepository
 import com.example.myapplication.ui.base.BaseViewModel
 
-class NewNoteViewModel(val noteRepository: NoteRepository) :
+class NewNoteViewModel(val noteRepository: NoteRepository ) :
     BaseViewModel<NewNoteViewState.Data, NewNoteViewState>() {
 
 

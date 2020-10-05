@@ -8,6 +8,7 @@ import com.example.myapplication.data.entity.Note
 import com.example.myapplication.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_new_note.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.util.*
 
 class NewNoteFragment : BaseFragment<NewNoteViewState.Data, NewNoteViewState>() {
